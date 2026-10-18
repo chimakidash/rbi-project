@@ -1,0 +1,122 @@
+x-chromium-template: &chromium-template
+  image: lscr.io/linuxserver/chromium:latest
+  security_opt:
+    - seccomp:unconfined
+  environment:
+    - PUID=1000
+    - PGID=1000
+    - TZ=Asia/Tokyo
+    # 帯域最適化チューニング（10Mbps/20人用）
+    - SELKIES_FRAMERATE=15
+    - SELKIES_ENCODER=x264enc
+    - SELKIES_H264_CRF=35
+    - SELKIES_AUDIO_ENABLED=false
+    - SELKIES_USE_CSS_SCALING=true
+  shm_size: "1g"
+  volumes:
+    - ./policies:/etc/chromium/policies/managed:ro
+  deploy:
+    resources:
+      limits:
+        cpus: "1.0"
+        memory: 1.2g
+  restart: unless-stopped
+
+services:
+  # ------------------------------------------------------------
+  # 入り口となるリバースプロキシ (Nginx)
+  # ------------------------------------------------------------
+  nginx:
+    image: nginx:alpine
+    container_name: rbi-nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - user1
+      - user2
+      - user3
+      - user4
+      - user5
+      - user6
+      - user7
+      - user8
+      - user9
+      - user10
+      - user11
+      - user12
+      - user13
+      - user14
+      - user15
+      - user16
+      - user17
+      - user18
+      - user19
+      - user20
+    restart: unless-stopped
+
+  # ------------------------------------------------------------
+  # 各ユーザー用コンテナ（20名分）
+  # ------------------------------------------------------------
+  user1:
+    <<: *chromium-template
+    container_name: chromium-user1
+  user2:
+    <<: *chromium-template
+    container_name: chromium-user2
+  user3:
+    <<: *chromium-template
+    container_name: chromium-user3
+  user4:
+    <<: *chromium-template
+    container_name: chromium-user4
+  user5:
+    <<: *chromium-template
+    container_name: chromium-user5
+  user6:
+    <<: *chromium-template
+    container_name: chromium-user6
+  user7:
+    <<: *chromium-template
+    container_name: chromium-user7
+  user8:
+    <<: *chromium-template
+    container_name: chromium-user8
+  user9:
+    <<: *chromium-template
+    container_name: chromium-user9
+  user10:
+    <<: *chromium-template
+    container_name: chromium-user10
+  user11:
+    <<: *chromium-template
+    container_name: chromium-user11
+  user12:
+    <<: *chromium-template
+    container_name: chromium-user12
+  user13:
+    <<: *chromium-template
+    container_name: chromium-user13
+  user14:
+    <<: *chromium-template
+    container_name: chromium-user14
+  user15:
+    <<: *chromium-template
+    container_name: chromium-user15
+  user16:
+    <<: *chromium-template
+    container_name: chromium-user16
+  user17:
+    <<: *chromium-template
+    container_name: chromium-user17
+  user18:
+    <<: *chromium-template
+    container_name: chromium-user18
+  user19:
+    <<: *chromium-template
+    container_name: chromium-user19
+  user20:
+    <<: *chromium-template
+    container_name: chromium-user20

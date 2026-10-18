@@ -1,0 +1,18 @@
+# 画像・スクリーンショット
+*.png
+*.jpg
+*.jpeg
+*.gif
+
+# 証明書・環境変数・秘匿ファイル
+*.pem
+*.key
+*.crt
+.htpasswd
+.env
+
+# OS・エディタの一時ファイル
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
