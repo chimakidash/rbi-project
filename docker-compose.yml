@@ -20,6 +20,11 @@ x-chromium-template: &chromium-template
       limits:
         cpus: "1.0"
         memory: 1.2g
+  logging:
+    driver: json-file
+    options:
+      max-size: "10m"
+      max-file: "3"
   restart: unless-stopped
 
 services:
@@ -36,6 +41,11 @@ services:
       - ./nginx.conf:/etc/nginx/nginx.conf:ro
       - ./nginx.crt:/etc/nginx/nginx.crt:ro
       - ./nginx.key:/etc/nginx/nginx.key:ro
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     depends_on:
       - user1
       - user2
